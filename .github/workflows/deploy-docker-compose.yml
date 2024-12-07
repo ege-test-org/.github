@@ -2,6 +2,10 @@ name: Deploy Docker Compose
 
 on:
   workflow_call:
+    secrets:
+      env-vars:
+        description: "Additional environment variables in KEY=VALUE format, separated by newlines"
+        required: false
     inputs:
       environment:
         type: string
@@ -18,29 +22,17 @@ on:
       image-tag:
         type: string
         description: "Image tag to deploy (default: pr-<number> if PR exists, latest for default branch)"
-      env-vars:
-        type: string
-        description: "Additional environment variables in KEY=VALUE format, separated by newlines"
-        required: false
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Mask sensitive inputs
-        if: ${{ inputs.env-vars != '' }}
-        run: |
-          echo "${{ inputs.env-vars }}" | while IFS= read -r line; do
-            echo "::add-mask::$line"
-          done
-          echo "::add-mask::${{ inputs.environment }}"
-
       - name: Create .env file
         run: |
           touch .env
 
-
           echo "ENVIRONMENT=${{ inputs.environment }}" > .env
+          echo "${{ inputs.env-vars }}" >> .env
           if [ "${{ inputs.env-vars }}" != "" ]; then
             echo "${{ inputs.env-vars }}" >> .env
           fi
