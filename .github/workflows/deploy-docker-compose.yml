@@ -27,10 +27,16 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Mask sensitive inputs
+        if: ${{ inputs.env-vars != '' }}
+        run: |
+          echo "${{ inputs.env-vars }}" | while IFS= read -r line; do
+            echo "::add-mask::$line"
+          done
+          echo "::add-mask::${{ inputs.environment }}"
+
       - name: Create .env file
         run: |
-          echo "::add-mask::${{ inputs.env-vars }}"
-          echo "::add-mask::${{ inputs.environment }}"
           touch .env
 
 
