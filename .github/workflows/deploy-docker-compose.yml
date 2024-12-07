@@ -31,7 +31,9 @@ jobs:
         run: |
           touch .env
 
+          set +x  # Disable logging
           echo "ENVIRONMENT=${{ inputs.environment }}" > .env
           if [ "${{ inputs.env-vars }}" != "" ]; then
             echo "${{ inputs.env-vars }}" >> .env
           fi
+          set -x  # Re-enable logging
