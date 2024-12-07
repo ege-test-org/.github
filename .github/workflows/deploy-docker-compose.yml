@@ -29,11 +29,13 @@ jobs:
     steps:
       - name: Create .env file
         run: |
+          echo "::add-mask::${{ inputs.env-vars }}"
+          echo "::add-mask::${{ inputs.environment }}"
           touch .env
 
-          set +x  # Disable logging
+
           echo "ENVIRONMENT=${{ inputs.environment }}" > .env
           if [ "${{ inputs.env-vars }}" != "" ]; then
             echo "${{ inputs.env-vars }}" >> .env
           fi
-          set -x  # Re-enable logging
+
