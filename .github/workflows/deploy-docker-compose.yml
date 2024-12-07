@@ -32,8 +32,8 @@ jobs:
           touch .env
 
           echo "ENVIRONMENT=${{ inputs.environment }}" > .env
-          echo "${{ inputs.env-vars }}" >> .env
-          if [ "${{ inputs.env-vars }}" != "" ]; then
-            echo "${{ inputs.env-vars }}" >> .env
+          if [ "${{ secrets.env-vars }}" != "" ]; then
+            echo "${{ secrets.env-vars }}" >> .env
           fi
 
+          cat .env
