@@ -28,10 +28,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Create .env file
-          script: |
-            touch .env
+        run: |
+          touch .env
 
-            echo "ENVIRONMENT=${{ inputs.environment }}" > .env
-            if [ "${{ inputs.env-vars }}" != "" ]; then
-              echo "${{ inputs.env-vars }}" >> .env
-            fi
+          echo "ENVIRONMENT=${{ inputs.environment }}" > .env
+          if [ "${{ inputs.env-vars }}" != "" ]; then
+            echo "${{ inputs.env-vars }}" >> .env
+          fi
