@@ -3,11 +3,9 @@ on: workflow_dispatch
 jobs:
   deploy-prod-container:
     uses: ./.github/workflows/deploy-docker-compose.yml
-    secrets: inherit
+    secrets:
+      env-vars: ${{secrets.ENV_VARIABLES}}
     with:
       environment: production
       main-image-name: "image"
       image-tag: "latest"
-      env-vars: |
-        ANOTHER_VARIABLE=VALUE
-        KEY=KEY_VALUE
