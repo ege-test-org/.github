@@ -2,7 +2,7 @@ on: workflow_dispatch
 
 jobs:
   deploy-prod-container:
-    uses: ./.github/workflows/deploy_docker.yml
+    uses: ./.github/workflows/deploy-docker-compose.yml
     secrets: inherit
     with:
       environment: production
