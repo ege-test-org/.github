@@ -10,4 +10,4 @@ jobs:
       image-tag: "latest"
       env-vars: |
         ANOTHER_VARIABLE=VALUE
-        ${{ secrets.ENV_VARIABLES }}
+        KEY=KEY_VALUE
