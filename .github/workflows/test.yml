@@ -1,0 +1,11 @@
+on: workflow_dispatch
+
+jobs:
+  deploy-prod-container:
+    uses: ./.github/workflows/deploy_docker.yml
+    secrets: inherit
+    with:
+      environment: production
+      main-image-name: "image"
+      image-tag: "latest"
+      env-vars: ${{ secrets.ENV_VARIABLES }}

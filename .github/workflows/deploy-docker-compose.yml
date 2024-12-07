@@ -1,0 +1,37 @@
+name: Deploy Docker Compose
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        type: string
+        description: "The deployment environment (e.g., production, staging)"
+        required: true
+      docker-compose-file:
+        type: string
+        default: "./docker-compose.yml"
+        description: "Path to the Docker Compose file (Default: ./docker-compose.yml)"
+      main-image-name:
+        type: string
+        description: "The name of the main image for checking if it exists with the given tag"
+        required: true
+      image-tag:
+        type: string
+        description: "Image tag to deploy (default: pr-<number> if PR exists, latest for default branch)"
+      env-vars:
+        type: string
+        description: "Additional environment variables in KEY=VALUE format, separated by newlines"
+        required: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create .env file
+        run: |
+          touch .env
+
+          echo "ENVIRONMENT=${{ inputs.environment }}" > .env
+          if [ "${{ inputs.env-vars }}" != "" ]; then
+            echo "${{ inputs.env-vars }}" >> .env
+          fi
