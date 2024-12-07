@@ -8,4 +8,6 @@ jobs:
       environment: production
       main-image-name: "image"
       image-tag: "latest"
-      env-vars: "${{ secrets.ENV_VARIABLES }}"
+      env-vars: |
+        ANOTHER_VARIABLE=VALUE
+        ${{ secrets.ENV_VARIABLES }}
