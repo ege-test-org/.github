@@ -1,13 +1,13 @@
 # .github
 
 Repository containing workflow templates and other guidelines
-
+asdasdad
 ## Workflows
 
 ### Build & Deploy via GitHub Actions
 
 #### 1. Dockerize your Application
-
+asdasdasdasdasd
 Create a Dockerfile for all your services that you want to deploy.
 
 #### 2. Setup Build and Push Docker Image Workflow
